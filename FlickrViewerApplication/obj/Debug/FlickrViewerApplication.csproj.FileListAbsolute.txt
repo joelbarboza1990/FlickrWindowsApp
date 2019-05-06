@@ -1,0 +1,15 @@
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\FlickrViewerApplication.exe.config
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\FlickrViewerApplication.exe
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\FlickrViewerApplication.pdb
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.csprojResolveAssemblyReference.cache
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.FlickrViewer.resources
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.Properties.Resources.resources
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.csproj.GenerateResource.Cache
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.exe
+F:\FlickrViewerApplication\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.pdb
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\System.Net.Http.Formatting.dll
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\Newtonsoft.Json.dll
+F:\FlickrViewerApplication\FlickrViewerApplication\bin\Debug\System.Net.Http.Formatting.xml
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\bin\Debug\FlickrViewerApplication.exe.config
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.exe
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\Debug\FlickrViewerApplication.pdb
