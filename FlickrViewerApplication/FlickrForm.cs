@@ -109,17 +109,14 @@ namespace FlickrViewerApplication
         private void GetTweets(string keyword)
         {
             var _consumerKey = "MhahGOxxlpo5eIwfvgqm8MM30";
-            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk"; // Your key  
-            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk"; // Your key  
-            var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD"; // Your key  
+            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk"; 
+            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk"; 
+            var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD";
 
             var twitterService = new TwitterService(_consumerKey, _consumerSecret);
             twitterService.AuthenticateWith(_accessToken, _accessTokenSecret);
 
-
             var tweetsSearch = twitterService.Search(new SearchOptions {Q = keyword, Count = 100});
-                //Resulttype = TwitterSearchResultType.Recent,
-            //Resulttype can be TwitterSearchResultType.Popular or TwitterSearchResultType.Mixed or TwitterSearchResultType.Recent  
             var resultList = new List<TwitterStatus>(tweetsSearch.Statuses);
             tweeterGridView.Rows.Clear();
             tweeterGridView.Refresh();

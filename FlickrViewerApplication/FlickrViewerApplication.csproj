@@ -80,18 +80,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FlickrForm1.cs">
+    <Compile Include="FlickrForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlickrForm1.Designer.cs">
-      <DependentUpon>FlickrForm1.cs</DependentUpon>
+    <Compile Include="FlickrForm.Designer.cs">
+      <DependentUpon>FlickrForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageItems.cs" />
     <Compile Include="jsonFlickr.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FlickrForm1.resx">
-      <DependentUpon>FlickrForm1.cs</DependentUpon>
+    <EmbeddedResource Include="FlickrForm.resx">
+      <DependentUpon>FlickrForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
