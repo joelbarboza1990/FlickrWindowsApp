@@ -51,37 +51,39 @@ namespace FlickrViewerApplication
                         var fileJsonString = await response.Content.ReadAsStringAsync();
                         var data = fileJsonString;
                         var jsonFlickrObj = BuildJsonData(data);
-                        loadingLabel.Text = jsonFlickrObj.title;
+                        loadingLabel.Text = jsonFlickrObj.Title;
                         DisplayData(jsonFlickrObj);
                     }
                 }
             }
         }
 
-        private static jsonFlickr BuildJsonData(string data)
+        FlickrResponseDto _flickrResponseDto = new FlickrResponseDto();
+        private FlickrResponseDto BuildJsonData(string data)
         {
             var removedData = data.Replace("jsonFlickrFeed(", "");
             var newString = removedData.Remove(removedData.Length - 1);
-            var jsonFlickr = JsonConvert.DeserializeObject<jsonFlickr>(newString);
+            var jsonFlickr = JsonConvert.DeserializeObject<FlickrResponseDto>(newString);
+            _flickrResponseDto = jsonFlickr;
             return jsonFlickr;
         }
 
-        private void DisplayData(jsonFlickr flickrObj)
+        private void DisplayData(FlickrResponseDto flickrObj)
         {
-            if (flickrObj.items == null) return;
-            var imageList = (from obj in flickrObj.items where obj.media != null select obj.media.m).ToList();
+            if (flickrObj.Items == null) return;
+            var imageList = (from obj in flickrObj.Items where obj.Media != null select obj.Media.m).ToList();
             var img = new ImageList
             {
                 ImageSize = new Size(230, 200),
                 ColorDepth = ColorDepth.Depth32Bit
             };
-            if (flickrObj.items.Count == 0)
+            if (flickrObj.Items.Count == 0)
             {
                 loadingLabel.Text = "No Items returned for search " + searchBox.Text;
             }
-            for (var i = 0; i < flickrObj.items.Count; i++)
+            for (var i = 0; i < flickrObj.Items.Count; i++)
             {
-                var imageObjLink = flickrObj.items[i].media;
+                var imageObjLink = flickrObj.Items[i].Media;
                 Image im;
                 try
                 {
@@ -101,10 +103,26 @@ namespace FlickrViewerApplication
 
 
                 var uri = new Uri(imageList[i]);
-                ImageViewer.Items.Add(flickrObj.items[i].title, i);
+                ImageViewer.Items.Add(flickrObj.Items[i].Title, i);
             }
+            ImageViewer.MouseDoubleClick += new MouseEventHandler(ImageViewerDoubleClickEvent);
             ImageViewer.LargeImageList = img;
         }
+
+        private void ImageViewerDoubleClickEvent(object sender, MouseEventArgs e)
+        {
+            var itemIndex = ImageViewer.SelectedItems[0];
+            var selectedImage = new FlickrResponseItemsDto();
+            for (int i = 0; i <= _flickrResponseDto.Items.Count; i++)
+            {
+                if(i != itemIndex.Index) continue;
+                selectedImage = _flickrResponseDto.Items[i];
+            }
+            var flickrPhotoViewer = new FlickrPhotoViewer(selectedImage);
+            flickrPhotoViewer.Show();
+            //MessageBox.Show("you clicked a image " + selectedImage.Title+" user "+selectedImage.Author+ " published date"+ selectedImage.Published);
+        }
+
 
         private void GetTweets(string keyword)
         {
