@@ -78,7 +78,6 @@ namespace FlickrViewerApplication
         {
             if (flickrObj.Items == null) return;
             ImageViewer.Items.Clear();
-            ImageViewer.Refresh();
             if (flickrObj.Items.Count == 0)
             {
                 LoadingLabel.Text = Constants.NoImagesReturnedString + SearchBox.Text;
