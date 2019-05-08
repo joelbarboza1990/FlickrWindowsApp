@@ -15,4 +15,3 @@ F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Release\Fli
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Release\FlickrViewerApplication.csproj.GenerateResource.Cache
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Release\FlickrViewerApplication.exe
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Release\FlickrViewerApplication.pdb
-F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Release\FlickrViewerApplication.csprojResolveAssemblyReference.cache

@@ -1,0 +1,15 @@
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\FlickrViewerApplicationUnitTest.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\FlickrViewerApplicationUnitTest.pdb
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\FlickrViewerApplication.exe
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\TweetSharp.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Newtonsoft.Json.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Hammock.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\FlickrViewerApplication.pdb
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\TweetSharp.pdb
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Newtonsoft.Json.xml
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\bin\Debug\Hammock.pdb
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\obj\Debug\FlickrViewerApplicationUnitTest.csprojResolveAssemblyReference.cache
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\obj\Debug\FlickrViewerApplicationUnitTest.dll
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplicationUnitTest\obj\Debug\FlickrViewerApplicationUnitTest.pdb

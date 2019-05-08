@@ -4,11 +4,17 @@ namespace FlickrViewerApplication.Dto
 {
     public class FlickrResponseDto
     {
-        public string Description = string.Empty;
-        public string Generator = string.Empty;
-        public List<FlickrResponseItemsDto> Items = null;
-        public string Link = string.Empty;
-        public string Modified = string.Empty;
-        public string Title = string.Empty;
+        public string Description;
+        public string Generator;
+        public List<FlickrResponseItemsDto> Items;
+        public string Link;
+        public string Modified;
+        public string Title;
+
+        public FlickrResponseDto()
+        {
+            Description = Generator = Link = Modified = Title = string.Empty;
+            Items = null;
+        }
     }
 }

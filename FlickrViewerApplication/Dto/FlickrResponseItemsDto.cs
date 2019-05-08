@@ -2,14 +2,20 @@
 {
     public class FlickrResponseItemsDto
     {
-        public string Author = string.Empty;
-        public string AuthorId = string.Empty;
-        public string DateTaken = string.Empty;
-        public string Description = string.Empty;
-        public string Link = string.Empty;
-        public MediaDto Media = null;
-        public string Published = string.Empty;
-        public string Tags = string.Empty;
-        public string Title = string.Empty;
+        public string Author;
+        public string AuthorId;
+        public string DateTaken;
+        public string Description;
+        public string Link;
+        public MediaDto Media;
+        public string Published;
+        public string Tags;
+        public string Title;
+
+        public FlickrResponseItemsDto()
+        {
+            Author = AuthorId = DateTaken = Description = Link = Published = Tags = Title = "";
+            Media = null;
+        }
     }
 }

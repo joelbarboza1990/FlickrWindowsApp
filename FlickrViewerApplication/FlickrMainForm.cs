@@ -13,7 +13,7 @@ namespace FlickrViewerApplication
         private FlickrResponseDto _flickrResponseDto = new FlickrResponseDto();
         private readonly IFlickrApiService _iFlickrApiService = new FlickrApiService();
         private readonly IFlickrService _iFlickrService = new FlickrService();
-
+        private FlickrResponseItemsDto _selectedObject;
         public FlickrViewer()
         {
             InitializeComponent();
@@ -103,26 +103,11 @@ namespace FlickrViewerApplication
         private void ImageViewerSingleClickEvent(object sender, MouseEventArgs e)
         {
             var itemIndex = ImageViewer.SelectedItems[0];
-            var selectedImage = new FlickrResponseItemsDto();
             for (var i = 0; i <= _flickrResponseDto.Items.Count; i++)
             {
                 if (i != itemIndex.Index) continue;
-                selectedObject = _flickrResponseDto.Items[i];
+                _selectedObject = _flickrResponseDto.Items[i];
             }
-        }
-
-        private FlickrResponseItemsDto selectedObject;
-        private void ImageViewerDoubleClickEvent(object sender, MouseEventArgs e)
-        {
-            var itemIndex = ImageViewer.SelectedItems[0];
-            var selectedImage = new FlickrResponseItemsDto();
-            for (var i = 0; i <= _flickrResponseDto.Items.Count; i++)
-            {
-                if (i != itemIndex.Index) continue;
-                selectedObject = _flickrResponseDto.Items[i];
-            }
-            var flickrPhotoViewer = new FlickrPhotoViewer(selectedImage);
-            flickrPhotoViewer.Show();
         }
 
         private void GetTweets(string keyword)
@@ -149,10 +134,10 @@ namespace FlickrViewerApplication
 
         private void ViewButtonbutton_Click(object sender, System.EventArgs e)
         {
-            if (selectedObject != null)
+            if (_selectedObject != null)
             {
-                var flickrPhotoViewer = new FlickrPhotoViewer(selectedObject);
-                selectedObject = null;
+                var flickrPhotoViewer = new FlickrPhotoViewer(_selectedObject);
+                _selectedObject = null;
                 flickrPhotoViewer.Show();
             }
             else
