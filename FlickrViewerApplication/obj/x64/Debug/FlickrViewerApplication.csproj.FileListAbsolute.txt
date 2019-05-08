@@ -17,9 +17,9 @@ F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\bin\x64\Debug\Newto
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\bin\x64\Debug\System.Net.Http.Formatting.xml
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\bin\x64\Debug\TweetSharp.pdb
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.FlickrViewer.resources
+F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.FlickrPhotoViewer.resources
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.Properties.Resources.resources
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.csproj.GenerateResource.Cache
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.exe
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.pdb
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.csprojResolveAssemblyReference.cache
-F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.FlickrPhotoViewer.resources

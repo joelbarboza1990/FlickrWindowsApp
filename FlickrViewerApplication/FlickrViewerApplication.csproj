@@ -80,12 +80,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadLinkDto.cs" />
-    <Compile Include="FlickrForm.cs">
+    <Compile Include="Api\FlickrApi.cs" />
+    <Compile Include="Dto\Media.cs" />
+    <Compile Include="FlickrMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FlickrForm.Designer.cs">
-      <DependentUpon>FlickrForm.cs</DependentUpon>
+    <Compile Include="FlickrMainForm.Designer.cs">
+      <DependentUpon>FlickrMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FlickrPhotoViewer.cs">
       <SubType>Form</SubType>
@@ -93,12 +94,16 @@
     <Compile Include="FlickrPhotoViewer.Designer.cs">
       <DependentUpon>FlickrPhotoViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="FlickrResponseItemsDto.cs" />
-    <Compile Include="FlickrResponseDto.cs" />
+    <Compile Include="Dto\FlickrResponseItemsDto.cs" />
+    <Compile Include="Dto\FlickrResponseDto.cs" />
+    <Compile Include="Interfaces\IFlickrApiService.cs" />
+    <Compile Include="Interfaces\IFlickrService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FlickrForm.resx">
-      <DependentUpon>FlickrForm.cs</DependentUpon>
+    <Compile Include="Services\FlickrApiService.cs" />
+    <Compile Include="Services\FlickrService.cs" />
+    <EmbeddedResource Include="FlickrMainForm.resx">
+      <DependentUpon>FlickrMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FlickrPhotoViewer.resx">
       <DependentUpon>FlickrPhotoViewer.cs</DependentUpon>
@@ -112,7 +117,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -127,6 +131,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

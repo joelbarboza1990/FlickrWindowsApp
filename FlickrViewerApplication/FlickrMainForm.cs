@@ -6,6 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Forms;
+using FlickrViewerApplication.Dto;
+using FlickrViewerApplication.Interfaces;
+using FlickrViewerApplication.Services;
 using Newtonsoft.Json;
 using TweetSharp;
 
@@ -13,9 +16,16 @@ namespace FlickrViewerApplication
 {
     public partial class FlickrViewer : Form
     {
+        private FlickrResponseDto _flickrResponseDto = new FlickrResponseDto();
+         IFlickrApiService _iFlickrApiService = new FlickrApiService();
         public FlickrViewer()
         {
             InitializeComponent();
+            SetControlsOnFormLoad();
+        }
+
+        private void SetControlsOnFormLoad()
+        {
             loadingLabel.Text = "";
             ActiveControl = searchBox;
             searchBox.Focus();
@@ -27,38 +37,44 @@ namespace FlickrViewerApplication
             if (searchBox.Text.Equals(string.Empty)) return;
             if (e.KeyCode == Keys.Enter)
             {
-                loadingLabel.Text = "Loading Data, Please wait ...";
-                loadingLabel.Show();
-                tweetLabel.Text = "Loading Tweets Please wait...";
-                GetTweets(searchBox.Text);
-                mainPanel.Visible = true;
-                ImageViewer.Items.Clear();
-                GetSearchImages(searchBox.Text);
-                tweetLabel.Text = "Tweets for " + searchBox.Text;
+                SetControlsOnEnterKey();
             }
         }
 
-        private async void GetSearchImages(string value)
+        private void SetControlsOnEnterKey()
         {
-            var url = $"http://api.flickr.com/services/feeds/photos_public.gne?tags={value}&tagmode=any&format=json";
+            loadingLabel.Text = "Loading Data, Please wait ...";
+            loadingLabel.Show();
+            tweetLabel.Text = "Loading Tweets Please wait...";
+            GetTweets(searchBox.Text);
+            mainPanel.Visible = true;
+            ImageViewer.Items.Clear();
+            GetSearchImages(searchBox.Text);
+            tweetLabel.Text = "Tweets for " + searchBox.Text;
+        }
 
-            using (var client = new HttpClient())
-            {
-                using (var response = await client.GetAsync(url))
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var fileJsonString = await response.Content.ReadAsStringAsync();
-                        var data = fileJsonString;
+        private void GetSearchImages(string value)
+        {
+
+            //var url = $"http://api.flickr.com/services/feeds/photos_public.gne?tags={value}&tagmode=any&format=json";
+
+            //using (var client = new HttpClient())
+            //{
+            //    using (var response = await client.GetAsync(url))
+            //    {
+            //        if (response.IsSuccessStatusCode)
+            //        {
+            //            var fileJsonString = await response.Content.ReadAsStringAsync();
+                        
+                        var data = _iFlickrApiService.GetImages(value);
                         var jsonFlickrObj = BuildJsonData(data);
                         loadingLabel.Text = jsonFlickrObj.Title;
                         DisplayData(jsonFlickrObj);
-                    }
-                }
-            }
+            //        }
+            //    }
+            //}
         }
 
-        FlickrResponseDto _flickrResponseDto = new FlickrResponseDto();
         private FlickrResponseDto BuildJsonData(string data)
         {
             var removedData = data.Replace("jsonFlickrFeed(", "");
@@ -105,7 +121,7 @@ namespace FlickrViewerApplication
                 var uri = new Uri(imageList[i]);
                 ImageViewer.Items.Add(flickrObj.Items[i].Title, i);
             }
-            ImageViewer.MouseDoubleClick += new MouseEventHandler(ImageViewerDoubleClickEvent);
+            ImageViewer.MouseDoubleClick += ImageViewerDoubleClickEvent;
             ImageViewer.LargeImageList = img;
         }
 
@@ -113,9 +129,9 @@ namespace FlickrViewerApplication
         {
             var itemIndex = ImageViewer.SelectedItems[0];
             var selectedImage = new FlickrResponseItemsDto();
-            for (int i = 0; i <= _flickrResponseDto.Items.Count; i++)
+            for (var i = 0; i <= _flickrResponseDto.Items.Count; i++)
             {
-                if(i != itemIndex.Index) continue;
+                if (i != itemIndex.Index) continue;
                 selectedImage = _flickrResponseDto.Items[i];
             }
             var flickrPhotoViewer = new FlickrPhotoViewer(selectedImage);
@@ -127,8 +143,8 @@ namespace FlickrViewerApplication
         private void GetTweets(string keyword)
         {
             var _consumerKey = "MhahGOxxlpo5eIwfvgqm8MM30";
-            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk"; 
-            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk"; 
+            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk";
+            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk";
             var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD";
 
             var twitterService = new TwitterService(_consumerKey, _consumerSecret);
