@@ -25,10 +25,15 @@ namespace FlickrViewerApplication
             LoadingLabel.Text = Constants.HelpString;
             ActiveControl = SearchBox;
             SearchBox.Focus();
+            HideControls();
+        }
+
+        private void HideControls()
+        {
             ImageViewer.Hide();
             TweetLabel.Hide();
             TweeterGridView.Hide();
-            //LoadingLabel.Show();
+            ViewImageButton.Hide();
         }
 
         private void searchBox_KeyUp(object sender, KeyEventArgs e)
@@ -46,9 +51,15 @@ namespace FlickrViewerApplication
         {
             GetTweets(SearchBox.Text);
             GetImages(SearchBox.Text);
+            ShowControls();
+        }
+
+        private void ShowControls()
+        {
             ImageViewer.Show();
             TweetLabel.Show();
             TweeterGridView.Show();
+            ViewImageButton.Show();
         }
 
         private void GetImages(string value)
@@ -67,6 +78,7 @@ namespace FlickrViewerApplication
         {
             if (flickrObj.Items == null) return;
             ImageViewer.Items.Clear();
+            ImageViewer.Refresh();
             if (flickrObj.Items.Count == 0)
             {
                 LoadingLabel.Text = Constants.NoImagesReturnedString + SearchBox.Text;
@@ -85,10 +97,22 @@ namespace FlickrViewerApplication
                 if (image != null) imgList.Images.Add(image);
                 ImageViewer.Items.Add(flickrObj.Items[i].Title, i);
             }
-            ImageViewer.MouseDoubleClick += ImageViewerDoubleClickEvent;
+            ImageViewer.MouseClick += ImageViewerSingleClickEvent;
             ImageViewer.LargeImageList = imgList;
         }
 
+        private void ImageViewerSingleClickEvent(object sender, MouseEventArgs e)
+        {
+            var itemIndex = ImageViewer.SelectedItems[0];
+            var selectedImage = new FlickrResponseItemsDto();
+            for (var i = 0; i <= _flickrResponseDto.Items.Count; i++)
+            {
+                if (i != itemIndex.Index) continue;
+                selectedObject = _flickrResponseDto.Items[i];
+            }
+        }
+
+        private FlickrResponseItemsDto selectedObject;
         private void ImageViewerDoubleClickEvent(object sender, MouseEventArgs e)
         {
             var itemIndex = ImageViewer.SelectedItems[0];
@@ -96,7 +120,7 @@ namespace FlickrViewerApplication
             for (var i = 0; i <= _flickrResponseDto.Items.Count; i++)
             {
                 if (i != itemIndex.Index) continue;
-                selectedImage = _flickrResponseDto.Items[i];
+                selectedObject = _flickrResponseDto.Items[i];
             }
             var flickrPhotoViewer = new FlickrPhotoViewer(selectedImage);
             flickrPhotoViewer.Show();
@@ -122,6 +146,20 @@ namespace FlickrViewerApplication
             }
             TweeterGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             TweeterGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void ViewButtonbutton_Click(object sender, System.EventArgs e)
+        {
+            if (selectedObject != null)
+            {
+                var flickrPhotoViewer = new FlickrPhotoViewer(selectedObject);
+                selectedObject = null;
+                flickrPhotoViewer.Show();
+            }
+            else
+            {
+                MessageBox.Show(Constants.ViewButtonErrorMessageString);
+            }
         }
     }
 }

@@ -39,6 +39,7 @@ namespace FlickrViewerApplication
             this.TweetLabel = new System.Windows.Forms.Label();
             this.TweeterGridView = new System.Windows.Forms.DataGridView();
             this.LoadingLabel = new System.Windows.Forms.Label();
+            this.ViewImageButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.TweeterGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,9 +68,9 @@ namespace FlickrViewerApplication
             // ImageViewer
             // 
             this.ImageViewer.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ImageViewer.Location = new System.Drawing.Point(5, 163);
+            this.ImageViewer.Location = new System.Drawing.Point(5, 217);
             this.ImageViewer.Name = "ImageViewer";
-            this.ImageViewer.Size = new System.Drawing.Size(856, 674);
+            this.ImageViewer.Size = new System.Drawing.Size(856, 620);
             this.ImageViewer.TabIndex = 3;
             this.ImageViewer.UseCompatibleStateImageBehavior = false;
             // 
@@ -80,7 +81,6 @@ namespace FlickrViewerApplication
             this.TweetLabel.Name = "TweetLabel";
             this.TweetLabel.Size = new System.Drawing.Size(801, 56);
             this.TweetLabel.TabIndex = 5;
-            this.TweetLabel.Text = "Loading Please Wait ...";
             this.TweetLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TweeterGridView
@@ -105,7 +105,7 @@ namespace FlickrViewerApplication
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.TweeterGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.TweeterGridView.Location = new System.Drawing.Point(884, 270);
+            this.TweeterGridView.Location = new System.Drawing.Point(889, 270);
             this.TweeterGridView.Name = "TweeterGridView";
             this.TweeterGridView.RowHeadersVisible = false;
             this.TweeterGridView.Size = new System.Drawing.Size(812, 567);
@@ -118,8 +118,19 @@ namespace FlickrViewerApplication
             this.LoadingLabel.Name = "LoadingLabel";
             this.LoadingLabel.Size = new System.Drawing.Size(1677, 56);
             this.LoadingLabel.TabIndex = 0;
-            this.LoadingLabel.Text = "Loading Please Wait ...";
             this.LoadingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ViewImageButton
+            // 
+            this.ViewImageButton.BackColor = System.Drawing.Color.Turquoise;
+            this.ViewImageButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.ViewImageButton.Location = new System.Drawing.Point(5, 174);
+            this.ViewImageButton.Name = "ViewImageButton";
+            this.ViewImageButton.Size = new System.Drawing.Size(172, 37);
+            this.ViewImageButton.TabIndex = 6;
+            this.ViewImageButton.Text = "View Image\r\n";
+            this.ViewImageButton.UseVisualStyleBackColor = false;
+            this.ViewImageButton.Click += new System.EventHandler(this.ViewButtonbutton_Click);
             // 
             // FlickrViewer
             // 
@@ -127,6 +138,7 @@ namespace FlickrViewerApplication
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(1708, 849);
+            this.Controls.Add(this.ViewImageButton);
             this.Controls.Add(this.LoadingLabel);
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.SearchLabel);
@@ -150,6 +162,7 @@ namespace FlickrViewerApplication
         private System.Windows.Forms.Label LoadingLabel;
         private DataGridView TweeterGridView;
         private Label TweetLabel;
+        private Button ViewImageButton;
     }
 }
 

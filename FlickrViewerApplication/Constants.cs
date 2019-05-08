@@ -11,5 +11,7 @@
         public static string HttpGetOperationString = "GET";
         public static string FlickrUrl =
             "https://api.flickr.com/services/feeds/photos_public.gne?tagmode=any&format=json&tags=";
+
+        public static string ViewButtonErrorMessageString = "Please select a Image to view in a new window.";
     }
 }

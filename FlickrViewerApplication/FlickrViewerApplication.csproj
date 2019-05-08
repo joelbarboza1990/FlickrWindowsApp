@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
-    <Compile Include="Dto\Media.cs" />
+    <Compile Include="Dto\MediaDto.cs" />
     <Compile Include="FlickrMainForm.cs">
       <SubType>Form</SubType>
     </Compile>

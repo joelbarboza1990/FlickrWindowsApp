@@ -1,6 +1,6 @@
 namespace FlickrViewerApplication.Dto
 {
-    public class Media
+    public class MediaDto
     {
         public string m = string.Empty;
     }
