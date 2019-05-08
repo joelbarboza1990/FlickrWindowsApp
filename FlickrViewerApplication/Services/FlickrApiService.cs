@@ -1,25 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using FlickrViewerApplication.Interfaces;
-using System.Net.Http.Formatting;
+using TweetSharp;
 
 namespace FlickrViewerApplication.Services
 {
     public class FlickrApiService : IFlickrApiService
     {
-        public string GetImages(string value)
+        /// <summary>
+        /// Method to get Images from flickr
+        /// </summary>
+        /// <param name="searchKey">search key to get data from flickr API</param>
+        /// <returns>string containing flickr data</returns>
+        public string GetImages(string searchKey)
         {
-            
-            string response = string.Empty;
+            var response = string.Empty;
             try
             {
                 string url =
-                    $"http://api.flickr.com/services/feeds/photos_public.gne?tags={value}&tagmode=any&format=json";
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(url);
+                    $"http://api.flickr.com/services/feeds/photos_public.gne?tags={searchKey}&tagmode=any&format=json";
+                var request = (HttpWebRequest) WebRequest.Create(url);
                 request.Method = "GET";
 
                 var webResponse = request.GetResponse();
@@ -30,7 +33,6 @@ namespace FlickrViewerApplication.Services
                     var responseReader = new StreamReader(webStream);
                     response = responseReader.ReadToEnd();
                     responseReader.Close();
-
                 }
             }
             catch (ArgumentNullException ex)
@@ -46,6 +48,49 @@ namespace FlickrViewerApplication.Services
                 throw new Exception(excep.Message);
             }
             return response;
+        }
+
+        /// <summary>
+        /// Method to download Image
+        /// </summary>
+        /// <param name="linkToDownload">link to download image</param>
+        /// <returns>image</returns>
+        public Image DownloadImage(string linkToDownload)
+        {
+            if (string.IsNullOrEmpty(linkToDownload)) return null;
+            Image image;
+            try
+            {
+                var w = new WebClient();
+                var imageByte = w.DownloadData(linkToDownload);
+                if (imageByte == null) return null;
+                var stream = new MemoryStream(imageByte);
+                image = Image.FromStream(stream);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+            return image;
+        }
+        /// <summary>
+        /// Method to get tweets from tweeter API
+        /// </summary>
+        /// <param name="keyword">keyword to be searched in tweeter Api</param>
+        /// <returns>list of data which contain tweeter data</returns>
+        public List<TwitterStatus> GetTweets(string keyword)
+        {
+            var _consumerKey = "MhahGOxxlpo5eIwfvgqm8MM30";
+            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk";
+            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk";
+            var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD";
+
+            var twitterService = new TwitterService(_consumerKey, _consumerSecret);
+            twitterService.AuthenticateWith(_accessToken, _accessTokenSecret);
+
+            var tweetsSearch = twitterService.Search(new SearchOptions {Q = keyword, Count = 100});
+            var resultList = new List<TwitterStatus>(tweetsSearch.Statuses);
+            return resultList;
         }
     }
 }

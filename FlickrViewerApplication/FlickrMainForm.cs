@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Windows.Forms;
 using FlickrViewerApplication.Dto;
 using FlickrViewerApplication.Interfaces;
 using FlickrViewerApplication.Services;
-using Newtonsoft.Json;
 using TweetSharp;
 
 namespace FlickrViewerApplication
@@ -17,7 +11,9 @@ namespace FlickrViewerApplication
     public partial class FlickrViewer : Form
     {
         private FlickrResponseDto _flickrResponseDto = new FlickrResponseDto();
-         IFlickrApiService _iFlickrApiService = new FlickrApiService();
+        private readonly IFlickrApiService _iFlickrApiService = new FlickrApiService();
+        private readonly IFlickrService _iFlickrService = new FlickrService();
+
         public FlickrViewer()
         {
             InitializeComponent();
@@ -26,15 +22,15 @@ namespace FlickrViewerApplication
 
         private void SetControlsOnFormLoad()
         {
-            loadingLabel.Text = "";
-            ActiveControl = searchBox;
-            searchBox.Focus();
-            loadingLabel.Show();
+            LoadingLabel.Text = "";
+            ActiveControl = SearchBox;
+            SearchBox.Focus();
+            LoadingLabel.Show();
         }
 
         private void searchBox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (searchBox.Text.Equals(string.Empty)) return;
+            if (SearchBox.Text.Equals(string.Empty)) return;
             if (e.KeyCode == Keys.Enter)
             {
                 SetControlsOnEnterKey();
@@ -43,86 +39,50 @@ namespace FlickrViewerApplication
 
         private void SetControlsOnEnterKey()
         {
-            loadingLabel.Text = "Loading Data, Please wait ...";
-            loadingLabel.Show();
-            tweetLabel.Text = "Loading Tweets Please wait...";
-            GetTweets(searchBox.Text);
-            mainPanel.Visible = true;
-            ImageViewer.Items.Clear();
-            GetSearchImages(searchBox.Text);
-            tweetLabel.Text = "Tweets for " + searchBox.Text;
+            MainPanel.Visible = true;
+            LoadingLabel.Text = Constants.LoadingDataString;
+            LoadingLabel.Show();
+            TweetLabel.Text = Constants.LoadingDataString;
+            GetTweets(SearchBox.Text);
+            GetImages(SearchBox.Text);
         }
 
-        private void GetSearchImages(string value)
+        private void GetImages(string value)
         {
-
-            //var url = $"http://api.flickr.com/services/feeds/photos_public.gne?tags={value}&tagmode=any&format=json";
-
-            //using (var client = new HttpClient())
-            //{
-            //    using (var response = await client.GetAsync(url))
-            //    {
-            //        if (response.IsSuccessStatusCode)
-            //        {
-            //            var fileJsonString = await response.Content.ReadAsStringAsync();
-                        
-                        var data = _iFlickrApiService.GetImages(value);
-                        var jsonFlickrObj = BuildJsonData(data);
-                        loadingLabel.Text = jsonFlickrObj.Title;
-                        DisplayData(jsonFlickrObj);
-            //        }
-            //    }
-            //}
-        }
-
-        private FlickrResponseDto BuildJsonData(string data)
-        {
-            var removedData = data.Replace("jsonFlickrFeed(", "");
-            var newString = removedData.Remove(removedData.Length - 1);
-            var jsonFlickr = JsonConvert.DeserializeObject<FlickrResponseDto>(newString);
-            _flickrResponseDto = jsonFlickr;
-            return jsonFlickr;
+            var data = _iFlickrApiService.GetImages(value);
+            var jsonFlickrObjDto = _iFlickrService.BuildFlickrJsonData(data);
+            _flickrResponseDto = jsonFlickrObjDto;
+            if (jsonFlickrObjDto != null)
+            {
+                LoadingLabel.Text = jsonFlickrObjDto.Title;
+                DisplayData(jsonFlickrObjDto);
+            }
         }
 
         private void DisplayData(FlickrResponseDto flickrObj)
         {
             if (flickrObj.Items == null) return;
-            var imageList = (from obj in flickrObj.Items where obj.Media != null select obj.Media.m).ToList();
-            var img = new ImageList
+            ImageViewer.Items.Clear();
+            if (flickrObj.Items.Count == 0)
+            {
+                LoadingLabel.Text = Constants.NoImagesReturnedString + SearchBox.Text;
+                return;
+            }
+            var imgList = new ImageList
             {
                 ImageSize = new Size(230, 200),
                 ColorDepth = ColorDepth.Depth32Bit
             };
-            if (flickrObj.Items.Count == 0)
-            {
-                loadingLabel.Text = "No Items returned for search " + searchBox.Text;
-            }
+
             for (var i = 0; i < flickrObj.Items.Count; i++)
             {
                 var imageObjLink = flickrObj.Items[i].Media;
-                Image im;
-                try
-                {
-                    var w = new WebClient();
-                    var imageByte = w.DownloadData(imageObjLink.m);
-                    if (imageByte == null) continue;
-
-                    var stream = new MemoryStream(imageByte);
-                    im = Image.FromStream(stream);
-                }
-                catch (Exception exception)
-                {
-                    continue;
-                }
-
-                img.Images.Add(im);
-
-
-                var uri = new Uri(imageList[i]);
+                var image = _iFlickrApiService.DownloadImage(imageObjLink.m);
+                if (image != null) imgList.Images.Add(image);
                 ImageViewer.Items.Add(flickrObj.Items[i].Title, i);
             }
             ImageViewer.MouseDoubleClick += ImageViewerDoubleClickEvent;
-            ImageViewer.LargeImageList = img;
+            ImageViewer.LargeImageList = imgList;
         }
 
         private void ImageViewerDoubleClickEvent(object sender, MouseEventArgs e)
@@ -136,32 +96,28 @@ namespace FlickrViewerApplication
             }
             var flickrPhotoViewer = new FlickrPhotoViewer(selectedImage);
             flickrPhotoViewer.Show();
-            //MessageBox.Show("you clicked a image " + selectedImage.Title+" user "+selectedImage.Author+ " published date"+ selectedImage.Published);
         }
-
 
         private void GetTweets(string keyword)
         {
-            var _consumerKey = "MhahGOxxlpo5eIwfvgqm8MM30";
-            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk";
-            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk";
-            var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD";
+            var resultList = _iFlickrApiService.GetTweets(keyword);
+            LoadTwitterGrid(resultList, keyword);
+        }
 
-            var twitterService = new TwitterService(_consumerKey, _consumerSecret);
-            twitterService.AuthenticateWith(_accessToken, _accessTokenSecret);
-
-            var tweetsSearch = twitterService.Search(new SearchOptions {Q = keyword, Count = 100});
-            var resultList = new List<TwitterStatus>(tweetsSearch.Statuses);
-            tweeterGridView.Rows.Clear();
-            tweeterGridView.Refresh();
-            tweeterGridView.ColumnCount = 1;
-            tweeterGridView.Columns[0].HeaderText = "Tweets for " + keyword;
-            foreach (var tweet in resultList)
+        private void LoadTwitterGrid(List<TwitterStatus> twitterStatuses, string keyword)
+        {
+            TweetLabel.Text = Constants.TweetLabelPrefixString + SearchBox.Text;
+            TweeterGridView.Rows.Clear();
+            TweeterGridView.Refresh();
+            TweeterGridView.ColumnCount = 1;
+            TweeterGridView.Columns[0].HeaderText = Constants.TweetLabelPrefixString + keyword;
+            foreach (var tweetStatus in twitterStatuses)
             {
-                tweeterGridView.Rows.Add(tweet.Author.ScreenName + " :--> " + tweet.Text + " @" + tweet.CreatedDate);
+                TweeterGridView.Rows.Add(tweetStatus.Author.ScreenName + " :--> " + tweetStatus.Text + " @" +
+                                         tweetStatus.CreatedDate);
             }
-            tweeterGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            tweeterGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            TweeterGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            TweeterGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }
