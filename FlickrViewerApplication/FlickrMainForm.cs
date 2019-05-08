@@ -22,10 +22,13 @@ namespace FlickrViewerApplication
 
         private void SetControlsOnFormLoad()
         {
-            LoadingLabel.Text = "";
+            LoadingLabel.Text = Constants.HelpString;
             ActiveControl = SearchBox;
             SearchBox.Focus();
-            LoadingLabel.Show();
+            ImageViewer.Hide();
+            TweetLabel.Hide();
+            TweeterGridView.Hide();
+            //LoadingLabel.Show();
         }
 
         private void searchBox_KeyUp(object sender, KeyEventArgs e)
@@ -33,18 +36,19 @@ namespace FlickrViewerApplication
             if (SearchBox.Text.Equals(string.Empty)) return;
             if (e.KeyCode == Keys.Enter)
             {
+                LoadingLabel.Text = Constants.LoadingDataString;
+                TweetLabel.Text = Constants.LoadingDataString;
                 SetControlsOnEnterKey();
             }
         }
 
         private void SetControlsOnEnterKey()
         {
-            MainPanel.Visible = true;
-            LoadingLabel.Text = Constants.LoadingDataString;
-            LoadingLabel.Show();
-            TweetLabel.Text = Constants.LoadingDataString;
             GetTweets(SearchBox.Text);
             GetImages(SearchBox.Text);
+            ImageViewer.Show();
+            TweetLabel.Show();
+            TweeterGridView.Show();
         }
 
         private void GetImages(string value)

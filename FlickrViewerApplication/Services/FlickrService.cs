@@ -18,7 +18,7 @@ namespace FlickrViewerApplication.Services
             FlickrResponseDto flickrResponseDto;
             try
             {
-                var removedData = data.Replace("jsonFlickrFeed(", "");
+                var removedData = data.Replace(Constants.JsonStringValueToReplaceString, string.Empty);
                 var newString = removedData.Remove(removedData.Length - 1);
                 flickrResponseDto = JsonConvert.DeserializeObject<FlickrResponseDto>(newString);
             }

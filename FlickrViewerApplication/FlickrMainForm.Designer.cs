@@ -31,16 +31,14 @@ namespace FlickrViewerApplication
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle TwitterGridViewStyle = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle TwitterGridViewStyleCell = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.SearchLabel = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.ImageViewer = new System.Windows.Forms.ListView();
-            this.MainPanel = new System.Windows.Forms.Panel();
             this.TweetLabel = new System.Windows.Forms.Label();
             this.TweeterGridView = new System.Windows.Forms.DataGridView();
             this.LoadingLabel = new System.Windows.Forms.Label();
-            this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TweeterGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,27 +67,16 @@ namespace FlickrViewerApplication
             // ImageViewer
             // 
             this.ImageViewer.Font = new System.Drawing.Font("Lucida Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ImageViewer.Location = new System.Drawing.Point(5, 12);
+            this.ImageViewer.Location = new System.Drawing.Point(5, 163);
             this.ImageViewer.Name = "ImageViewer";
-            this.ImageViewer.Size = new System.Drawing.Size(856, 640);
+            this.ImageViewer.Size = new System.Drawing.Size(856, 674);
             this.ImageViewer.TabIndex = 3;
             this.ImageViewer.UseCompatibleStateImageBehavior = false;
-            // 
-            // MainPanel
-            // 
-            this.MainPanel.Controls.Add(this.TweetLabel);
-            this.MainPanel.Controls.Add(this.TweeterGridView);
-            this.MainPanel.Controls.Add(this.ImageViewer);
-            this.MainPanel.Location = new System.Drawing.Point(7, 170);
-            this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(1682, 667);
-            this.MainPanel.TabIndex = 4;
-            this.MainPanel.Visible = false;
             // 
             // TweetLabel
             // 
             this.TweetLabel.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TweetLabel.Location = new System.Drawing.Point(867, 12);
+            this.TweetLabel.Location = new System.Drawing.Point(885, 197);
             this.TweetLabel.Name = "TweetLabel";
             this.TweetLabel.Size = new System.Drawing.Size(801, 56);
             this.TweetLabel.TabIndex = 5;
@@ -98,27 +85,27 @@ namespace FlickrViewerApplication
             // 
             // TweeterGridView
             // 
-            TwitterGridViewStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            TwitterGridViewStyle.BackColor = System.Drawing.SystemColors.ControlDark;
-            TwitterGridViewStyle.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            TwitterGridViewStyle.ForeColor = System.Drawing.SystemColors.WindowText;
-            TwitterGridViewStyle.NullValue = null;
-            TwitterGridViewStyle.Padding = new System.Windows.Forms.Padding(5);
-            TwitterGridViewStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            TwitterGridViewStyle.SelectionForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            TwitterGridViewStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TweeterGridView.ColumnHeadersDefaultCellStyle = TwitterGridViewStyle;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Lucida Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(5);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TweeterGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.TweeterGridView.ColumnHeadersHeight = 100;
             this.TweeterGridView.ColumnHeadersVisible = false;
-            TwitterGridViewStyleCell.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            TwitterGridViewStyleCell.BackColor = System.Drawing.SystemColors.Window;
-            TwitterGridViewStyleCell.Font = new System.Drawing.Font("Lucida Sans", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            TwitterGridViewStyleCell.ForeColor = System.Drawing.SystemColors.ControlText;
-            TwitterGridViewStyleCell.SelectionBackColor = System.Drawing.SystemColors.ButtonHighlight;
-            TwitterGridViewStyleCell.SelectionForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            TwitterGridViewStyleCell.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TweeterGridView.DefaultCellStyle = TwitterGridViewStyleCell;
-            this.TweeterGridView.Location = new System.Drawing.Point(867, 85);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lucida Sans", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TweeterGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TweeterGridView.Location = new System.Drawing.Point(884, 270);
             this.TweeterGridView.Name = "TweeterGridView";
             this.TweeterGridView.RowHeadersVisible = false;
             this.TweeterGridView.Size = new System.Drawing.Size(812, 567);
@@ -141,12 +128,13 @@ namespace FlickrViewerApplication
             this.BackColor = System.Drawing.Color.AntiqueWhite;
             this.ClientSize = new System.Drawing.Size(1708, 849);
             this.Controls.Add(this.LoadingLabel);
-            this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.SearchBox);
             this.Controls.Add(this.SearchLabel);
+            this.Controls.Add(this.TweetLabel);
+            this.Controls.Add(this.TweeterGridView);
+            this.Controls.Add(this.ImageViewer);
             this.Name = "FlickrViewer";
             this.Text = "Flickr Viewer";
-            this.MainPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TweeterGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -158,7 +146,7 @@ namespace FlickrViewerApplication
         private System.Windows.Forms.Label SearchLabel;
         private System.Windows.Forms.TextBox SearchBox;
         private System.Windows.Forms.ListView ImageViewer;
-        private System.Windows.Forms.Panel MainPanel;
+        //private System.Windows.Forms.Panel MainPanel;
         private System.Windows.Forms.Label LoadingLabel;
         private DataGridView TweeterGridView;
         private Label TweetLabel;

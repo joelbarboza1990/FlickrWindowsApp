@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -20,11 +21,9 @@ namespace FlickrViewerApplication.Services
             var response = string.Empty;
             try
             {
-                string url =
-                    $"http://api.flickr.com/services/feeds/photos_public.gne?tags={searchKey}&tagmode=any&format=json";
+                string url = Constants.FlickrUrl + searchKey;
                 var request = (HttpWebRequest) WebRequest.Create(url);
-                request.Method = "GET";
-
+                request.Method = Constants.HttpGetOperationString;
                 var webResponse = request.GetResponse();
                 var webStream = webResponse.GetResponseStream();
 
@@ -67,6 +66,14 @@ namespace FlickrViewerApplication.Services
                 var stream = new MemoryStream(imageByte);
                 image = Image.FromStream(stream);
             }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            catch (WebException exception)
+            {
+                throw new Exception(exception.Message);
+            }
             catch (Exception exception)
             {
                 throw new Exception(exception.Message);
@@ -80,15 +87,22 @@ namespace FlickrViewerApplication.Services
         /// <returns>list of data which contain tweeter data</returns>
         public List<TwitterStatus> GetTweets(string keyword)
         {
-            var _consumerKey = "MhahGOxxlpo5eIwfvgqm8MM30";
-            var _consumerSecret = "vupTzaTaAE5SERotaQl8IhsMCZiwDIukKFmiETCsw1FkD08QPk";
-            var _accessToken = "357611961-bgTltJYoOC2fSGD4acF4UqUIPH7iXIiAQzmrmOMk";
-            var _accessTokenSecret = "AMRu5ZQLqTPJLNQLHqAYjn7qiAGSAja9WXBvmXrX9PCrD";
-
-            var twitterService = new TwitterService(_consumerKey, _consumerSecret);
-            twitterService.AuthenticateWith(_accessToken, _accessTokenSecret);
-
-            var tweetsSearch = twitterService.Search(new SearchOptions {Q = keyword, Count = 100});
+            var consumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
+            var consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
+            var accessToken = ConfigurationManager.AppSettings["AccessToken"];
+            var accessTokenSecret = ConfigurationManager.AppSettings["AccessTokenSecret"];
+            TwitterSearchResult tweetsSearch;
+            try
+            {
+                var twitterService = new TwitterService(consumerKey, consumerSecret);
+                twitterService.AuthenticateWith(accessToken, accessTokenSecret);
+                tweetsSearch = twitterService.Search(new SearchOptions {Q = keyword, Count = 100});
+            }
+            catch (Exception exception)
+            {
+                throw new Exception(exception.Message);
+            }
+            
             var resultList = new List<TwitterStatus>(tweetsSearch.Statuses);
             return resultList;
         }
