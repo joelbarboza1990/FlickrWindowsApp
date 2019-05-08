@@ -22,4 +22,3 @@ F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\Flick
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.csproj.GenerateResource.Cache
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.exe
 F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.pdb
-F:\FlickrWindowsApp\FlickrWindowsApp\FlickrViewerApplication\obj\x64\Debug\FlickrViewerApplication.csprojResolveAssemblyReference.cache
